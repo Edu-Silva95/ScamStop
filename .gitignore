@@ -1,0 +1,15 @@
+# Server secrets
+server/.env
+server/.env.*
+!server/.env.example
+
+# Dependencies
+server/node_modules/
+client/**/node_modules/
+
+# Build outputs
+client/**/dist/
+client/**/dist-ssr/
+
+# Logs
+*.log

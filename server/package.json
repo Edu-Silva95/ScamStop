@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:clean": "fuser -k 3001/tcp >/dev/null 2>&1 || true && node index.js",
+    "threat-intel:init": "node scripts/threat-intel-init.js",
+    "threat-intel:sync": "node scripts/threat-intel-sync.js",
+    "threat-intel:scheduler": "node scripts/scheduler.js",
+    "threat-intel:sync:recent": "node scripts/threat-intel-sync.js --recent",
+    "threat-intel:sync:full": "node scripts/threat-intel-sync.js --full"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.15.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-cron": "^4.2.1",
+    "pg": "^8.20.0",
+    "tldts": "^7.0.28"
+  }
+}
