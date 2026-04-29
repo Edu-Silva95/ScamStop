@@ -1,4 +1,5 @@
 **Very Important**
+
 This website should not be the one to judge wether you should or should not click the link, it is made to give you information and for you to use this information to make a decision. I am not responsible if anything happens to you or your device if you clicked a link.
 At the end of the day only you can protect yourself from these attacks.
 
