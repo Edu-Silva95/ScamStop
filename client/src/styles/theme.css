@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* ROOT THEME */
+:root {
+  --text: #5b5f6a;
+  --text-muted: #8b90a0;
+  --text-h: #0b0d12;
+
+  --bg: #ffffff;
+  --page-bg: #f3f5fb;
+
+  --surface: #f6f7fb;
+  --surface-2: #eef1f7;
+
+  --border: #e6e8ef;
+
+  --accent: #7c3aed;
+  --accent-glow: rgba(124, 58, 237, 0.45);
+  --accent-bg: rgba(124, 58, 237, 0.1);
+
+  --good: #16a34a;
+  --warn: #f59e0b;
+  --bad: #ef4444;
+
+  --shadow: rgba(0, 0, 0, 0.06) 0 18px 40px -18px;
+
+  --sans: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  font-family: var(--sans);
+}
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #a1a1aa;
+    --text-muted: #6b7280;
+    --text-h: #f8fafc;
+
+    --bg: #0b0d12;
+    --page-bg: #07080c;
+
+    --surface: #11141b;
+    --surface-2: #161a23;
+
+    --border: #1f2430;
+
+    --accent: #a78bfa;
+    --accent-glow: rgba(167, 139, 250, 0.6);
+
+    --shadow: rgba(0, 0, 0, 0.6) 0 25px 50px -20px;
+  }
+
+  body {
+    background:
+      radial-gradient(
+        circle at 20% 0%,
+        rgba(167, 139, 250, 0.08),
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(34, 197, 94, 0.05),
+        transparent 40%
+      ),
+      var(--page-bg);
+  }
+}

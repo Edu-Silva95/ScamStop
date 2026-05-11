@@ -38,6 +38,11 @@ This is a personal project, not intended for public distribution.
 cd server && npm install
 cd ../client/ScamStop && npm install
 ```
+- (Optional, get the latest updates from URLhaus):
+
+```bash
+npm run threat-intel:sync
+```
 
 2. Start the server (from `server/`):
 

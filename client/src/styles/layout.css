@@ -1,0 +1,157 @@
+/* LAYOUT & STRUCTURE */
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 20px auto;
+  min-height: calc(100svh - 40px);
+  display: flex;
+  flex-direction: column;
+
+  border-inline: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.app {
+  padding: 28px 22px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.app__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* TYPOGRAPHY */
+h1 {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin-top: 12px;
+}
+
+p {
+  color: var(--text);
+}
+
+strong {
+  color: var(--text-h);
+}
+
+/* SECTIONS */
+.section {
+  margin-top: 16px;
+}
+
+.section h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.section ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.section ul li {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+/* SECTION TOGGLE */
+.section-toggle {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.section-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.section-toggle__content {
+  margin-top: 10px;
+}
+
+/* ROW LAYOUT */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.row__title {
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+/* NOTE & FOOTER */
+.note {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.note p {
+  margin: 0;
+}
+
+.footer {
+  margin-top: 10px;
+  padding: 16px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.footer span:last-child {
+  font-size: 12px;
+}
+
+/* UTILITY */
+.meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: 13px;
+}

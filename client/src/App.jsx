@@ -165,134 +165,147 @@ function App() {
     <div className="app">
       <Toast toast={toast} />
 
-      <h1>Message Scam Checker</h1>
+      <div className="app__content">
+        <h1>Message Scam Checker</h1>
 
-      <textarea
-        className="input"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Paste the Message here"
-      />
+        <textarea
+          className="input"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Paste the Message here"
+        />
 
-      <button
-        className="button"
-        onClick={analyze}
-        disabled={!message.trim() || loading}
-      >
-        {loading ? "Scanning..." : "Analyze"}
-      </button>
+        <button
+          className="button"
+          onClick={analyze}
+          disabled={!message.trim() || loading}
+        >
+          {loading ? "Scanning..." : "Analyze"}
+        </button>
 
-      {loading && <Loader />}
+        {loading && <Loader />}
 
-      {error && (
-        <div className="card card--error">
-          <h2>Error</h2>
-          <p>{error}</p>
-        </div>
-      )}
-
-      {result && (
-        <div className="card">
-
-          {/* HEADER */}
-          <div className="row">
-            <h2>Result</h2>
-
-            <span className={`badge badge--${statusTone(result.status)} badge--right`}>
-              {result.status}
-            </span>
+        {error && (
+          <div className="card card--error">
+            <h2>Error</h2>
+            <p>{error}</p>
           </div>
+        )}
 
-          {/* SCORE */}
-          <ScoreGauge score={result.score} status={result.status} />
+        {result && (
+          <div className="card">
 
-          {/* EXPLANATION */}
-          <div className="section explanation">
-            <button
-              type="button"
-              className="section-toggle"
-              aria-expanded={howItWorksOpen}
-              onClick={() => setHowItWorksOpen((v) => !v)}
-            >
-              How it works
-            </button>
+            {/* HEADER */}
+            <div className="row">
+              <h2>Result</h2>
 
-            {howItWorksOpen && (
-              <div className="section-toggle__content">
-                <p>
-                  The system calculates a <strong>risk score (0-100)</strong> based on detected scam signals such as:
-                </p>
+              <span className={`badge badge--${statusTone(result.status)} badge--right`}>
+                {result.status}
+              </span>
+            </div>
+
+            {/* SCORE */}
+            <ScoreGauge score={result.score} status={result.status} />
+
+            {/* EXPLANATION */}
+            <div className="section explanation">
+              <button
+                type="button"
+                className="section-toggle"
+                aria-expanded={howItWorksOpen}
+                onClick={() => setHowItWorksOpen((v) => !v)}
+              >
+                How it works
+              </button>
+
+              {howItWorksOpen && (
+                <div className="section-toggle__content">
+                  <p>
+                    The system calculates a <strong>risk score (0-100)</strong> based on detected scam signals such as:
+                  </p>
+                  <ul>
+                    <li>Suspicious or shortened links</li>
+                    <li>Domain impersonation or lookalike URLs</li>
+                    <li>Urgency or payment-related language</li>
+                    <li>Mismatch between brand and domain</li>
+                  </ul>
+
+                  <p>
+                    <strong>Score interpretation:</strong>
+                  </p>
+                  <ul>
+                    <li><strong>0-39:</strong> safe (trusted) or neutral (untrusted)</li>
+                    <li><strong>40-79:</strong> suspicious</li>
+                    <li><strong>80-100:</strong> malicious</li>
+                  </ul>
+
+                  <p className="muted">
+                    Note: A low score does not guarantee safety — only that no strong scam patterns were detected.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* REASONS */}
+            {result.reasons?.length > 0 && (
+              <div className="section">
+                <h3>Why this rating</h3>
                 <ul>
-                  <li>Suspicious or shortened links</li>
-                  <li>Domain impersonation or lookalike URLs</li>
-                  <li>Urgency or payment-related language</li>
-                  <li>Mismatch between brand and domain</li>
+                  {result.reasons.map((r, i) => (
+                    <li key={i}>{r}</li>
+                  ))}
                 </ul>
-
-                <p>
-                  <strong>Score interpretation:</strong>
-                </p>
-                <ul>
-                  <li><strong>0-39:</strong> safe (trusted) or neutral (untrusted)</li>
-                  <li><strong>40-79:</strong> suspicious</li>
-                  <li><strong>80-100:</strong> malicious</li>
-                </ul>
-
-                <p className="muted">
-                  Note: A low score does not guarantee safety — only that no strong scam patterns were detected.
-                </p>
               </div>
             )}
+
+            {/* THREAT INTEL, CHECK IF THERE IS A MATCH WITH THE LOCAL DATABASE */}
+            {result.threatIntel?.checked && (
+              <div className="section">
+                <h3>Threat intel</h3>
+                {Array.isArray(result.threatIntel.dbSources) && result.threatIntel.dbSources.length > 0 && (
+                  <p>
+                    Checked local feeds: {result.threatIntel.dbSources.join(", ")}.
+                  </p>
+                )}
+                {result.threatIntel.match ? (
+                  <p>
+                    Match found in local threat-intel database
+                    {Array.isArray(result.threatIntel.sources) && result.threatIntel.sources.length > 0
+                      ? ` (${result.threatIntel.sources.join(", ")})`
+                      : ""}.
+                  </p>
+                ) : (
+                  <p>No matches found in the local threat-intel database.</p>
+                )}
+              </div>
+            )}
+
+            {/* URLS */}
+            {result.urls?.length > 0 && (
+              <div className="section">
+                <h3>Links found</h3>
+                <ul className="list">
+                  {result.urls.map((u, i) => (
+                    <UrlCard key={i} u={u} />
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="note">
+              <p>
+                Note: Not every official or legitimate link from every company is stored in our database. This site analyzes links for common red flags used by scammers. Please read links carefully. This website is here to help you, not decide for you.
+              </p>
+            </div>
+
           </div>
+        )}
+      </div>
 
-          {/* REASONS */}
-          {result.reasons?.length > 0 && (
-            <div className="section">
-              <h3>Why this rating</h3>
-              <ul>
-                {result.reasons.map((r, i) => (
-                  <li key={i}>{r}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* THREAT INTEL, CHECK IF THERE IS A MATCH WITH THE LOCAL DATABASE */}
-          {result.threatIntel?.checked && (
-            <div className="section">
-              <h3>Threat intel</h3>
-              {Array.isArray(result.threatIntel.dbSources) && result.threatIntel.dbSources.length > 0 && (
-                <p>
-                  Checked local feeds: {result.threatIntel.dbSources.join(", ")}.
-                </p>
-              )}
-              {result.threatIntel.match ? (
-                <p>
-                  Match found in local threat-intel database
-                  {Array.isArray(result.threatIntel.sources) && result.threatIntel.sources.length > 0
-                    ? ` (${result.threatIntel.sources.join(", ")})`
-                    : ""}.
-                </p>
-              ) : (
-                <p>No matches found in the local threat-intel database.</p>
-              )}
-            </div>
-          )}
-
-          {/* URLS */}
-          {result.urls?.length > 0 && (
-            <div className="section">
-              <h3>Links found</h3>
-              <ul className="list">
-                {result.urls.map((u, i) => (
-                  <UrlCard key={i} u={u} />
-                ))}
-              </ul>
-            </div>
-          )}
-
-        </div>
-      )}
+      <footer className="footer">
+        <span>Built to help you inspect messages and links with more confidence.</span>
+        <span>All rights reserved.</span>
+      </footer>
     </div>
   );
 }
